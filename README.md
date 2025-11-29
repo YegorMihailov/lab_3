@@ -41,10 +41,6 @@
 - **Стек** (LIFO)
 - **Очередь** (FIFO)
 
-## Установка и запуск
+## Запуск тестов
 
-# Запуск тестов
-python -m unittest discover tests/
-
-# Запуск бенчмарков
-python src/benchmark.py
+python src/main.py
