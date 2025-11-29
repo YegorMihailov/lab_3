@@ -1,7 +1,5 @@
 import random
 from .constants import ERROR_MESSAGES
-# docstring
-# нужно использовать тест кейсы в тестах
 
 def rand_int_array(n: int, lo: int, hi: int, *, distinct=False, seed=None) -> list[int]:
     """
@@ -103,5 +101,4 @@ def rand_float_array(n: int, lo=0.0, hi=1.0, *, seed=None) -> list[float]:
     
     return [random.uniform(lo, hi) for i in range(n)]
 
-# print(rand_float_array(3, 1.5, 4.5))
 

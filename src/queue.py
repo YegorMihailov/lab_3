@@ -1,4 +1,4 @@
-from .constants import ERROR_MESSAGES
+from constants import ERROR_MESSAGES
 
 class Queue:
     def __init__(self):

@@ -1,6 +1,5 @@
 import time
 from constants import ERROR_MESSAGES
-from functions import quick_sort, bubble_sort
 
 def timeit_once(func, *args, **kwargs) -> float:
     """
@@ -17,12 +16,12 @@ def timeit_once(func, *args, **kwargs) -> float:
     Raises:
         ValueError: If the function execution fails
     """
-    start = time.time()
+    start = time.perf_counter()
     try:
         func(*args, **kwargs)
     except:
         raise ValueError(ERROR_MESSAGES['EXECUTING_ERROR'])
-    end = time.time()
+    end = time.perf_counter()
 
     return end - start
 
@@ -51,15 +50,3 @@ def benchmark_sorts(arrays: dict[str, list], algos: dict[str, callable]) -> dict
             res[arr_name][alg_name] = alg_time
     
     return res
-
-arrs = {
-    'bebra': [1, 345, 3452, 3, 32, 2, -54],
-    'huyamba': [34, 443, 34, 232, 232, 324234, 324]
-}
-
-algos = {
-    'quick': quick_sort,
-    'bubble': bubble_sort
-}
-
-# print(benchmark_sorts(arrs, algos))

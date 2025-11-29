@@ -4,16 +4,17 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.functions import *
 from src.test_cases import *
+from src.benchmark import *
 
 class TestSorting(unittest.TestCase):
-    
     def setUp(self):
         """Initialize test data for sorting algorithms"""
         
         self.test_arrays = {
-            'small_random': [3, 1, 4, 1, 5, 9, 2, 6],
-            'sorted': [1, 2, 3, 4, 5],
-            'single_element': [42],
+            'random': rand_int_array(7, 1, 20),
+            'nearly_sorted': nearly_sorted(7, 3),
+            'many_duplicates': many_duplicates(20, 4),
+            'reverse_sorted': reverse_sorted(7)
         }
     
     def test_bubble_sort(self):
@@ -27,6 +28,7 @@ class TestSorting(unittest.TestCase):
     
     def test_quick_sort(self):
         """Test quick sort algorithm with various input arrays"""
+
         for name, arr in self.test_arrays.items():
             with self.subTest(array=name):
                 expected = sorted(arr)
@@ -35,14 +37,8 @@ class TestSorting(unittest.TestCase):
     
     def test_counting_sort(self):
         """Test counting sort algorithm with various input arrays"""
-
-        test_data = {
-            'default_arr': [3, 1, 4, 1, 2],
-            'single': [5],
-            'empty': [],
-        }
         
-        for name, arr in test_data.items():
+        for name, arr in self.test_arrays.items():
             with self.subTest(array=name):
                 expected = sorted(arr)
                 result = counting_sort(arr)
@@ -59,6 +55,7 @@ class TestSorting(unittest.TestCase):
     
     def test_heap_sort(self):
         """Test heap sort algorithm with various input arrays"""
+
         for name, arr in self.test_arrays.items():
             with self.subTest(array=name):
                 expected = sorted(arr)
@@ -66,8 +63,17 @@ class TestSorting(unittest.TestCase):
                 self.assertEqual(result, expected, f"Heap sort failed on {name}")
     
     def test_bucket_sort(self):
-        """Test bucket sort algorithm with various input arrays"""       
-        for name, arr in self.test_arrays.items():
+        """Test bucket sort algorithm with various input arrays"""
+
+        test_arrays = {
+            'random_float': rand_float_array(7, 1, 20),
+            'random_int': rand_int_array(7, 1, 20),
+            'nearly_sorted': nearly_sorted(7, 3),
+            'many_duplicates': many_duplicates(20, 4),
+            'reverse_sorted': reverse_sorted(7)
+        }
+               
+        for name, arr in test_arrays.items():
             with self.subTest(array=name):
                 expected = sorted(arr)
                 result = bucket_sort(arr, buckets=5)
@@ -95,6 +101,7 @@ class TestSorting(unittest.TestCase):
     
     def test_sort_comparator(self):
         """Test sorting algorithms with comparator function"""
+
         def reverse_cmp(a, b):
             if a < b: return 1
             if a > b: return -1
@@ -110,6 +117,24 @@ class TestSorting(unittest.TestCase):
         self.assertEqual(result_bubble, expected, "Bubble sort failed with comparator")
         self.assertEqual(result_quick, expected, "Quick sort failed with comparator")
         self.assertEqual(result_bucket, expected, "Bucket sort failed with comparator")
+
+    def test_algorithm_performance(self):
+        """Test performance of algorithms"""
+        
+        for name, arr in self.test_arrays.items():
+            bubble_time = timeit_once(bubble_sort, arr)
+            quick_time = timeit_once(quick_sort, arr)
+            heap_time = timeit_once(heap_sort, arr)
+            counting_time = timeit_once(counting_sort, arr)
+            radix_time = timeit_once(radix_sort, arr)
+            bucket_time = timeit_once(bucket_sort, arr)
+        
+        print('\nBubble sort time: ', bubble_time)
+        print('Quick sort time: ', quick_time)
+        print('Heap sort time: ', heap_time)
+        print('Counting sort time: ', counting_time)
+        print('Radix sort time: ', radix_time)
+        print('Bucket sort time: ', bucket_time)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-from .constants import ERROR_MESSAGES
+from constants import ERROR_MESSAGES
 import heapq
 
 def factorial(n: int) -> int:
@@ -40,7 +40,7 @@ def factorial_recursive(n: int) -> int:
         return 1
     else:
         return n * factorial_recursive(n - 1)
-# отриц числа???
+
 def fibo(n: int) -> int:
     """
     Calculate the nth Fibonacci number using iterative approach.
@@ -88,8 +88,6 @@ def fibo_recursive(n: int) -> int:
     else:
         return fibo_recursive(n - 1) + fibo_recursive(n - 2)
 
-
-# посмтореть бабл
 def bubble_sort(a: list, key: callable = None, cmp: callable = None) -> list:
     """
     Sort a list using bubble sort algorithm.
@@ -105,11 +103,10 @@ def bubble_sort(a: list, key: callable = None, cmp: callable = None) -> list:
     Returns:
         a (list): Sorted list in ascending order according to the key and comparator
     """
-    if not a:
-        return []
+    if len(a) <= 1:
+        return a
     
-    arr = a.copy()
-    n = len(arr)
+    n = len(a)
     if key is None:
         key = lambda x: x
     
@@ -120,15 +117,15 @@ def bubble_sort(a: list, key: callable = None, cmp: callable = None) -> list:
             return 0
     for i in range(n):
         for j in range(0, n - i - 1):
-            left_key = key(arr[j])
-            right_key = key(arr[j + 1])
+            left_key = key(a[j])
+            right_key = key(a[j + 1])
             
             comparator = cmp(left_key, right_key)
             
             if comparator > 0:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                a[j], a[j + 1] = a[j + 1], a[j]
     
-    return arr
+    return a
 
 def quick_sort(a: list[int], key: callable = None, cmp: callable = None) -> list[int]: 
     """
@@ -171,8 +168,6 @@ def quick_sort(a: list[int], key: callable = None, cmp: callable = None) -> list
 
     return quick_sort(r, key=key, cmp=cmp) + c + quick_sort(l, key=key, cmp=cmp)
 
-# comparator ???
-
 def counting_sort(a: list[int], key: callable = None) -> list[int]:
     """
     Sort a list of integers using counting sort algorithm.
@@ -204,13 +199,7 @@ def counting_sort(a: list[int], key: callable = None) -> list[int]:
     
     for i in range(1, len(counting_arr)):
         counting_arr[i] += counting_arr[i - 1]
-        # val = min_item + 1
-        # val_cnt = counting_arr[i]
-
-        # if val_cnt > 0:
-        #     items = [val] * val_cnt
-        #     sorted_arr.extend(items)
-    # разобраться
+        
     for i in range(len(a) - 1, -1, -1):
         key_val = keys[i]
         index = counting_arr[key_val - min_item] - 1
@@ -243,7 +232,6 @@ def radix_sort(a: list[int], key: callable = None, base: int = 10) -> list[int]:
     while temp > 0:
         max_len += 1
         temp //= base
-    # 
 
     arr = list(zip(keys, a))
 
@@ -258,15 +246,6 @@ def radix_sort(a: list[int], key: callable = None, base: int = 10) -> list[int]:
 
         for k in bins:
             arr.extend(k)
-
-        # for x in a:
-        #     digit = (x // base ** i) % base
-
-        #     bins[digit].append(x)
-         
-        # a = [x for queue in bins for x in queue]
-
-        # bins = [[] for i in range(base)]
     
     return [item for key_val, item in arr]
 
@@ -349,9 +328,3 @@ def heap_sort(a: list[int], key: callable = None) -> list[int]:
         a = [heapq.heappop(keys)[1] for i in range(len(keys))]
     
     return a
-    
-
-def reverse_cmp(a, b):
-        if a < b: return 1
-        if a > b: return -1
-        return 0
