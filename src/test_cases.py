@@ -1,5 +1,5 @@
 import random
-from .constants import ERROR_MESSAGES
+from constants import ERROR_MESSAGES
 
 def rand_int_array(n: int, lo: int, hi: int, *, distinct=False, seed=None) -> list[int]:
     """

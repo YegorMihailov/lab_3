@@ -48,22 +48,25 @@ class TestStack(unittest.TestCase):
 class TestQueue(unittest.TestCase):
     def setUp(self):
         """Set up Queue instance before test."""
+
         self.queue = Queue()
     
     def test_enqueue_dequeue(self):
-        """
-        Test adding element to the queue and removing it."""
+        """Test adding element to the queue and removing it."""
+
         self.queue.enqueue(1)
         self.assertEqual(self.queue.dequeue(), 1)
     
     def test_front(self):
         """Test viewing the front element without removing it."""
+
         self.queue.enqueue(42)
         self.assertEqual(self.queue.front(), 42)
         self.assertEqual(len(self.queue), 1)
     
     def test_empty_queue(self):
         """Test operations on an empty queue."""
+        
         self.assertTrue(self.queue.is_empty())
         
         with self.assertRaises(ValueError):
