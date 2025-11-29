@@ -42,12 +42,7 @@ def benchmark_sorts(arrays: dict[str, list], algos: dict[str, callable]) -> dict
     for arr_name, arr in arrays.items():
         res[arr_name] = {}
         for alg_name, alg in algos.items():
-            test_arr = arr.copy()
-            start = time.perf_counter()
-            alg(test_arr)
-            end = time.perf_counter()
-
-            alg_time = end - start
+            alg_time = timeit_once(alg(arr))
             res[arr_name][alg_name] = alg_time
     
     return res
