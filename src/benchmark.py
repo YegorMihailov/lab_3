@@ -37,6 +37,7 @@ def benchmark_sorts(arrays: dict[str, list], algos: dict[str, callable]) -> dict
         dict[str, dict[str, float]]: Dictionary with timing results.
                                      Structure: {array_name: {algorithm_name: time}}
     """
+    
     res = {}
     for arr_name, arr in arrays.items():
         res[arr_name] = {}

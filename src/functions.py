@@ -221,6 +221,9 @@ def radix_sort(a: list[int], key: callable = None, base: int = 10) -> list[int]:
         a (list): Sorted list in ascending order according to the key
     """
 
+    if len(a) <= 1:
+        return a
+
     keys = a
 
     if key:
